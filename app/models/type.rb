@@ -4,7 +4,7 @@ class Type
 
   field :name, type: String
   field :description, type: String
-  field :_id, type: String, default: ->{ name.to_s.parameterize }
+  #field :_id, type: String, default: ->{ name.to_s.parameterize }
 
   attr_accessible :name, :description
   validates_presence_of :name
