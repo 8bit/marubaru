@@ -70,7 +70,11 @@ development:
 
 
 production:
-  uri: <%= ENV['MONGOHQ_URL'] %>
+  sessions:
+    default:
+      database: app9281560
+      hosts:
+        - alex.mongohq.com:10020
 
 
 test:
