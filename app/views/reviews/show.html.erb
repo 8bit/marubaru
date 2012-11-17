@@ -1,18 +1,25 @@
 <p id="notice"><%= notice %></p>
 
+<h1 style="padding-bottom:10px;">Review for <%= @review.thing.name %></h1>
+
 <p>
-  <b>Critique:</b>
-  <%= @review.critique %>
+  <b>Total score:</b>
+  <%= @review.ob_score + @review.sub_score %>
 </p>
 
 <p>
-  <b>Ob score:</b>
+  <b>How good I think it is:</b>
   <%= @review.ob_score %>
 </p>
 
 <p>
-  <b>Sub score:</b>
+  <b>How much I like it:</b>
   <%= @review.sub_score %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @review.note %>
 </p>
 
 <%= link_to 'Done', thing_path(@review.thing), class: 'btn' %> 

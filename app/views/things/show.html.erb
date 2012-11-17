@@ -18,7 +18,7 @@
     <th>Objective</th>
     <th>Subjective</th>
     <th>Review by</th>
-    <th>Critique</th>
+    <th>Notes</th>
     <th></th>
     <th></th>
   </tr>
@@ -29,7 +29,7 @@
   	<td><%= review.ob_score %></td>
     <td><%= review.sub_score %></td>
     <td><%= review.user.name if review.user %></td>
-    <td><%= review.critique %></td>
+    <td><%= review.note %></td>
     <td><%= link_to 'Edit', edit_review_path(review) %></td>
     <td><%= link_to 'Destroy', review, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
