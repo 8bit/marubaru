@@ -1,9 +1,16 @@
 Marubaru::Application.routes.draw do
+  root :to => "types#index"
   devise_for :users
 
-  resources :types
+  resources :types do
+    resources :things
+  end
 
-  root :to => "types#index"
+  resources :things do
+    resources :reviews
+  end
+
+  resources :reviews
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

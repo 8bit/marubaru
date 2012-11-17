@@ -1,0 +1,27 @@
+<h1 style='padding-bottom: 10px;'>Listing reviews</h1>
+
+<table class="table">
+  <tr>
+    <th>Type</th>
+    <th>Thing</th>
+    <th>Critique</th>
+    <th>Objective</th>
+    <th>Subjective</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @reviews.each do |review| %>
+  <tr>
+    <td><%= review.thing.type.name if review.thing.type %></td>
+    <td><%= review.thing.name if review.thing %></td>
+    <td><%= review.critique %></td>
+    <td><%= review.ob_score %></td>
+    <td><%= review.sub_score %></td>
+    <td><%= link_to 'Show', review %></td>
+    <td><%= link_to 'Edit', edit_review_path(review) %></td>
+    <td><%= link_to 'Destroy', review, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>

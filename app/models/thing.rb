@@ -1,6 +1,7 @@
-class Type
+class Thing
   include Mongoid::Document
-  has_many :things
+  has_many :reviews
+  belongs_to :type
 
   field :name, type: String
   field :description, type: String

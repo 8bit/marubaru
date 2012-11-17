@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  critique: MyText
+  ob_score: 1
+  sub_score: 1
+
+two:
+  critique: MyText
+  ob_score: 1
+  sub_score: 1

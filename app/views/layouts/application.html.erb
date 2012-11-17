@@ -31,9 +31,11 @@
           <a class="brand" href="#">Marubaru</a>
           <div class="container nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
+              <% if false %>
+                <li><%= link_to "Link1", "/path1"  %></li>
+                <li><%= link_to "Link2", "/path2"  %></li>
+                <li><%= link_to "Link3", "/path3"  %></li>
+              <% end %>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -43,15 +45,16 @@
     <div class="container">
       <div class="content">
         <div class="row">
-           <div class="span12">
+           <div class="span11">
 
             <div id="user_nav" class="pull-right">
               <% if user_signed_in? %>
-                Signed in as <%= current_user.email %>. Not you?
-                <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+                Logged in as <strong><%= current_user.name %></strong> |
+                <%= link_to 'Edit profile', edit_user_registration_path %> |
+                <%= link_to "Logout", destroy_user_session_path, method: :delete %>
               <% else %>
-                <%= link_to "Sign up", new_user_registration_path %> or
-                <%= link_to "Sign in", new_user_session_path %>
+                <%= link_to "Sign up", new_user_registration_path %> |
+                <%= link_to "Login", new_user_session_path %>
               <% end %>
             </div>
 

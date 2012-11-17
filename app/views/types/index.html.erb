@@ -1,19 +1,18 @@
-<h1 style='padding-bottom: 10px;'>Listing types</h1>
 
 <table class="table">
   <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th class="span2"></th>
+    <th class="span2">Name</th>
+    <th class="span6">Description</th>
+    <th class="span1"></th>
+    <th class="span1"></th>
   </tr>
 
 <% @types.each do |type| %>
   <tr>
+    <td><%= link_to "Review a #{type.name}", type, class: 'btn' %></td>
     <td><%= type.name %></td>
     <td><%= type.description %></td>
-    <td><%= link_to 'Show', type %></td>
     <td><%= link_to 'Edit', edit_type_path(type) %></td>
     <td><%= link_to 'Destroy', type, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
@@ -22,4 +21,4 @@
 
 <br />
 
-<%= link_to 'New Type', new_type_path %>
+<%= link_to 'New type of review', new_type_path, class: 'btn' %>

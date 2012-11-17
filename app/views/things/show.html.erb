@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @thing.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @thing.description %>
+</p>
+
+<%= link_to "Review '#{@thing.name}' yourself", new_thing_review_path(@thing), class: 'btn'%><br><br>
+
+<table class="table">
+  <tr>
+  	<th>Score</th>
+    <th>Objective</th>
+    <th>Subjective</th>
+    <th>Review by</th>
+    <th>Critique</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @reviews.each do |review| %>
+  <tr>
+  	<td><%= review.ob_score + review.sub_score %></td>    
+  	<td><%= review.ob_score %></td>
+    <td><%= review.sub_score %></td>
+    <td><%= review.user.name if review.user %></td>
+    <td><%= review.critique %></td>
+    <td><%= link_to 'Edit', edit_review_path(review) %></td>
+    <td><%= link_to 'Destroy', review, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Edit', edit_thing_path(@thing) %> |
+<%= link_to 'Back', type_path(@thing.type) %>

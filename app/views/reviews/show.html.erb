@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Critique:</b>
+  <%= @review.critique %>
+</p>
+
+<p>
+  <b>Ob score:</b>
+  <%= @review.ob_score %>
+</p>
+
+<p>
+  <b>Sub score:</b>
+  <%= @review.sub_score %>
+</p>
+
+<%= link_to 'Done', thing_path(@review.thing), class: 'btn' %> 
+
+<br>
+<br>
+<br>
+
+<%= link_to 'Edit', edit_review_path(@review) %> |
+<%= link_to 'Back', thing_path(@review.thing) %>

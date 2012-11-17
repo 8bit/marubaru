@@ -10,6 +10,28 @@
   <%= @type.description %>
 </p>
 
+<table class="table">
+  <tr>
+  	<th class="span2"></th>
+    <th class="span2">Name</th>
+    <th class="span5">Description</th>
+    <th class="span2"></th>
+    <th class="span1"></th>
+    <th class="span1"></th>
+  </tr>
 
+<% @things.each do |thing| %>
+  <tr>
+  	<td><%= link_to 'Review This', new_thing_review_path(thing), class: 'btn' %></td>
+    <td><%= thing.name %></td>
+    <td><%= thing.description %></td>
+    <td><%= link_to 'Check Reviews', thing, class: 'btn' %></td>
+    <td><%= link_to 'Edit', edit_thing_path(thing) %></td>
+    <td><%= link_to 'Destroy', thing, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to "New #{@type.name}", new_type_thing_path(@type), class: 'btn'%><br><br>
 <%= link_to 'Edit', edit_type_path(@type) %> |
 <%= link_to 'Back', types_path %>
