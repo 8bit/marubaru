@@ -69,10 +69,9 @@ development:
     # use_utc: false
 
 
-<% if ENV['MONGOHQ_URL'] %>
-  production:
-    uri: <%= ENV['MONGOHQ_URL'] %>
-<% else %>
+production:
+  uri: <%= ENV['MONGOHQ_URL'] %>
+
 
 test:
   sessions:
