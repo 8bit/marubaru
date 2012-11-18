@@ -20,5 +20,12 @@
 </table>
 
 <br />
+<% if false %>
+  <%= form_tag do |f| %>
+    <div class="field">
+        <%= collection_select :type, :name, @types, :_id, :name, {:prompt => 'I want to review a: '}  %>
+    </div>
+  <% end %>
+<% end %>
 
 <%= link_to 'New type of review', new_type_path, class: 'btn' %>

@@ -11,10 +11,21 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
+  
+    <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </div>
+
+
+    <% if false %>
+      <div class="field">
+        <%= f.label :name %><br />
+        <%= f.collection_select :name, Type.all, :_id, :name, {:prompt => 'I want to review a: '}  %>
+      </div>
+    <% end %>
+
+
   <div class="field">
     <%= f.label :description %><br />
     <%= f.text_area :description %>
