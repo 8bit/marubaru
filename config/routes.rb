@@ -1,6 +1,7 @@
 Marubaru::Application.routes.draw do
   root :to => "types#index"
   devise_for :users
+  resources :users
 
   resources :types do
     resources :things

@@ -6,9 +6,13 @@ class TypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @types }
+      if false
+        format.json { render json: @types.any_of({ :name => /.*#{params[:q]}.*/i }) }
+      else
+        format.json { render json: @types.lookup(params[:q]) }
+      end
     end
-  end
+  end 
 
   # GET /types/1
   # GET /types/1.json
@@ -42,14 +46,33 @@ class TypesController < ApplicationController
   # POST /types.json
   def create
     @type = Type.new(params[:type])
+    the_name = @type.name
 
-    respond_to do |format|
-      if @type.save
-        format.html { redirect_to @type, notice: 'Type was successfully created.' }
-        format.json { render json: @type, status: :created, location: @type }
+    if the_name.empty?
+      redirect_to types_path, notice: 'Type a little, pick something from the list, hit the button!'
+    else
+
+      the_name.slice! 'New: "'
+      the_name.chop!
+      the_name.capitalize!
+      @type.name = the_name
+
+      old_name = Type.where({name: @type.name}).first
+
+      if old_name
+        redirect_to old_name
       else
-        format.html { render action: "new" }
-        format.json { render json: @type.errors, status: :unprocessable_entity }
+        
+
+        respond_to do |format|
+          if @type.save
+            format.html { redirect_to edit_type_path(@type), notice: "Congrats! Your the first to reveiw a #{@type.name}, what is it?" }
+            format.json { render json: @type, status: :created, location: @type }
+          else
+            format.html { render action: "new" }
+            format.json { render json: @type.errors, status: :unprocessable_entity }
+          end
+        end
       end
     end
   end
