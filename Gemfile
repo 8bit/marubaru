@@ -9,7 +9,6 @@ gem 'devise'
 gem 'hirb'
 gem "heroku"
 gem "cancan"
-gem "rolify"
 
 # Gems used only for assets and not required
 # in production environments by default.

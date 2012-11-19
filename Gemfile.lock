@@ -120,7 +120,6 @@ GEM
       json (~> 1.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    rolify (3.2.0)
     rubyzip (0.9.9)
     sass (3.2.3)
     sass-rails (3.2.5)
@@ -163,7 +162,6 @@ DEPENDENCIES
   jquery-rails
   mongoid (~> 3.0.4)
   rails (= 3.2.3)
-  rolify
   sass-rails (~> 3.2.3)
   twitter-bootstrap-rails
   uglifier (>= 1.0.3)
