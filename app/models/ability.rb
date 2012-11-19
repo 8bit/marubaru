@@ -10,7 +10,7 @@ class Ability
       can :read, :all
 
       if user.basic?
-        can [:read, :create], :all
+        can :manage, :all
         #can :update, :all, owner_id: user.id
       end
 
