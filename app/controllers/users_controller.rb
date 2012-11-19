@@ -16,20 +16,23 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @reviews = @user.reviews
 
-    @ob_score = 0
-    @sub_score = 0
-    @tot_score = 0
-    @review_count = @reviews.length
+    if @reviews.length > 0
+      
+      @ob_score = 0
+      @sub_score = 0
+      @tot_score = 0
+      @review_count = @reviews.length
 
-    @reviews.each do |r|
-      @ob_score += r.ob_score.to_i
-      @sub_score += r.sub_score.to_i
-      @tot_score += (r.sub_score.to_i + r.ob_score.to_i)
+      @reviews.each do |r|
+        @ob_score += r.ob_score.to_i
+        @sub_score += r.sub_score.to_i
+        @tot_score += (r.sub_score.to_i + r.ob_score.to_i)
+      end
+
+      @ob_score = @ob_score / @review_count
+      @sub_score = @sub_score / @review_count
+      @tot_score = @tot_score / @review_count
     end
-
-    @ob_score = @ob_score / @review_count
-    @sub_score = @sub_score / @review_count
-    @tot_score = @tot_score / @review_count
 
 
 

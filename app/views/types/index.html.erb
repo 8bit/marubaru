@@ -1,30 +1,40 @@
-<%= form_for(Type.new, html: {class: 'form-inline form-horizontal'}) do |f| %>
-  <p class="pull-left">
-    <%= f.text_field :name, style: 'height: 40px' %>
-  </p>
+<% if can? :create, @type %>
+  <%= form_for(Type.new, html: {class: 'form-inline form-horizontal'}) do |f| %>
+    <p class="pull-left">
+      <%= f.text_field :name, style: 'height: 40px' %>
+    </p>
 
-   <p class="pull-left" style="padding-left:5px;">
-    <%= f.submit 'Marubaru!', :class => "btn", style: 'height: 40px' %>
-  </p>
+     <p class="pull-left" style="padding-left:5px;">
+      <%= f.submit 'Rate Something!', :class => "btn", style: 'height: 40px' %>
+    </p>
+  <% end %>
 <% end %>
 
 
-<table class="table">
+<table class="table" style="margin-top:80px;">
   <tr>
     <th class="span2"></th>
     <th class="span2">Name</th>
     <th class="span6">Description</th>
+    <% if can? :update, @type %>
     <th class="span1"></th>
-    <th class="span1"></th>
+      <% end %>
+    <% if can? :destroy, @type %>
+      <th class="span1"></th>
+    <% end %>
   </tr>
 
 <% @types.each do |type| %>
   <tr>
-    <td><%= link_to "Review a #{type.name}", type, class: 'btn' %></td>
+    <td><%= link_to "Rate a #{type.name}", type, class: 'btn' %></td>
     <td><%= type.name %></td>
     <td><%= type.description %></td>
-    <td><%= link_to 'Edit', edit_type_path(type) %></td>
-    <td><%= link_to 'Destroy', type, confirm: 'Are you sure?', method: :delete %></td>
+    <% if can? :update, @type %>
+      <td><%= link_to 'Edit', edit_type_path(type) %></td>
+    <% end %>
+    <% if can? :destroy, @type %>
+      <td><%= link_to 'Destroy', type, confirm: 'Are you sure?', method: :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>

@@ -1,5 +1,6 @@
 class User
   include Mongoid::Document
+  #rolify
   has_many :reviews
   
   # Include default devise modules. Others available are:
@@ -7,6 +8,8 @@ class User
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, 
          :recoverable, :rememberable, :trackable, :validatable
+
+  #attr_accessible :role_ids, :as => :admin
 
   ## Database authenticatable
   field :name,               :type => String, :default => ""

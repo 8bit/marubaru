@@ -11,13 +11,11 @@
     </div>
   <% end %>
 
-  
-  <div class="field">
-    <%= f.label :description %>
+  <div class="field" style="padding-top:20px;">
     <%= f.text_area :description %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions" >
+    <%= f.submit "Yup, thats a #{@type.name}"%>
   </div>
 <% end %>

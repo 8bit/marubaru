@@ -1,16 +1,26 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @type.name %>
-</p>
+<h1 style="padding-bottom: 10px;">
+  <%=  @type.name.pluralize %>
+</h2>
 
 <p>
-  <b>Description:</b>
   <%= @type.description %>
 </p>
 
-<table class="table">
+<br>
+
+<%= form_for([@type, Thing.new], html: {class: 'form-inline form-horizontal'}) do |f| %>
+  <p class="pull-left">
+    <%= f.text_field :name, style: 'height: 40px' %>
+  </p>
+
+   <p class="pull-left" style="padding-left:5px;">
+    <%= f.submit "Rate A #{@type.name}", :class => "btn", style: 'height: 40px' %>
+  </p>
+<% end %>
+
+<table class="table" style="margin-top:80px;">
   <tr>
   	<th class="span2"></th>
     <th class="span2">Name</th>
@@ -22,7 +32,7 @@
 
 <% @things.each do |thing| %>
   <tr>
-  	<td><%= link_to 'Review This', new_thing_review_path(thing), class: 'btn' %></td>
+  	<td><%= link_to 'Rate This', new_thing_review_path(thing), class: 'btn' %></td>
     <td><%= thing.name %></td>
     <td><%= thing.description %></td>
     <td><%= link_to 'Check Reviews', thing, class: 'btn' %></td>
@@ -32,6 +42,5 @@
 <% end %>
 </table>
 
-<%= link_to "New #{@type.name}", new_type_thing_path(@type), class: 'btn'%><br><br>
 <%= link_to 'Edit', edit_type_path(@type) %> |
 <%= link_to 'Back', types_path %>

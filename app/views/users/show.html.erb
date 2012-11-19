@@ -1,61 +1,71 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @user.name %>
-</p>
+<% unless @reviews.length > 0 %>
+  <h1 style="padding-bottom:10px">
+    <%= @user.name %>
+  </h1>
 
-<p>
-  <b>email:</b>
-  <%= @user.email %>
-</p>
+  <h2 class="hero-unit">You need to go review some stuff!</h2>
+  <br>
+  <br>
 
-<p>
-  <b>Average Objective Score:</b>
-  <%= @ob_score %>
-</p>
+<% else %>
+  <h1>
+    <%= @user.name %>
+  </h1>
 
+  <p>
+    <b>email:</b>
+    <%= @user.email %>
+  </p>
 
-<p>
-  <b>Average Subjective Score:</b>
-  <%= @sub_score %>
-</p>
-
-
-<p>
-  <b>Average Total Score:</b>
-  <%= @tot_score %>
-</p>
+  <p>
+    <b>Average Objective Score:</b>
+    <%= @ob_score %>
+  </p>
 
 
+  <p>
+    <b>Average Subjective Score:</b>
+    <%= @sub_score %>
+  </p>
 
 
-<table class="table">
-  <tr>
-    <th>Type</th>
-    <th>Thing</th>
-    <th>Notes</th>
-    <th>Objective</th>
-    <th>Subjective</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+  <p>
+    <b>Average Total Score:</b>
+    <%= @tot_score %>
+  </p>
 
-<% @reviews.each do |review| %>
-  <tr>
-    <td><%= review.thing.type.name if review.thing.type %></td>
-    <td><%= review.thing.name if review.thing %></td>
-    <td><%= review.note %></td>
-    <td><%= review.ob_score %></td>
-    <td><%= review.sub_score %></td>
-    <td><%= link_to 'Show', review %></td>
-    <td><%= link_to 'Edit', edit_review_path(review) %></td>
-    <td><%= link_to 'Destroy', review, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+
+
+
+  <table class="table">
+    <tr>
+      <th>Type</th>
+      <th>Thing</th>
+      <th>Notes</th>
+      <th>Objective</th>
+      <th>Subjective</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @reviews.each do |review| %>
+    <tr>
+      <td><%= review.thing.type.name if review.thing.type %></td>
+      <td><%= review.thing.name if review.thing %></td>
+      <td><%= review.note %></td>
+      <td><%= review.ob_score %></td>
+      <td><%= review.sub_score %></td>
+      <td><%= link_to 'Show', review %></td>
+      <td><%= link_to 'Edit', edit_review_path(review) %></td>
+      <td><%= link_to 'Destroy', review, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <br />
 <% end %>
-</table>
-
-<br />
 
 <%= link_to 'Back', types_path %>

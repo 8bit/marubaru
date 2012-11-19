@@ -10,4 +10,13 @@ class Thing
   attr_accessible :name, :description
   validates_presence_of :name
   validates_uniqueness_of :name, :case_sensitive => false
+
+  def self.lookup(query)
+  	name = Thing.any_of({ :name => /.*#{query}.*/i })
+  	if name.empty?
+  		[{id: "#{query}", name: "New: \"#{query}\""}]
+  	else
+      name
+  	end
+  end
 end

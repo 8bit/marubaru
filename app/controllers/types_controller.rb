@@ -1,4 +1,5 @@
 class TypesController < ApplicationController
+
   # GET /types
   # GET /types.json
   def index
@@ -51,19 +52,18 @@ class TypesController < ApplicationController
     if the_name.empty?
       redirect_to types_path, notice: 'Type a little, pick something from the list, hit the button!'
     else
-
-      the_name.slice! 'New: "'
-      the_name.chop!
-      the_name.capitalize!
-      @type.name = the_name
-
       old_name = Type.where({name: @type.name}).first
 
       if old_name
         redirect_to old_name
       else
-        
 
+        the_name.slice! 'New: "'
+        the_name.chop!
+        the_name.capitalize!
+        @type.name = the_name
+
+        
         respond_to do |format|
           if @type.save
             format.html { redirect_to edit_type_path(@type), notice: "Congrats! Your the first to reveiw a #{@type.name}, what is it?" }

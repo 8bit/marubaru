@@ -8,7 +8,7 @@ class ThingsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @things }
+      format.json { render json: @things.lookup(params[:q]) }
     end
   end
 
@@ -44,14 +44,30 @@ class ThingsController < ApplicationController
   # POST /things.json
   def create
     @thing = @type.things.new(params[:thing])
+    the_name = @thing.name
 
-    respond_to do |format|
-      if @thing.save
-        format.html { redirect_to @thing, notice: 'Thing was successfully created.' }
-        format.json { render json: @thing, status: :created, location: @thing }
+    if the_name.empty?
+      redirect_to :back, notice: 'Type a little, pick something from the list, hit the button!'
+    else
+      old_name = Thing.where({name: @thing.name}).first
+      
+      if old_name
+        redirect_to old_name
       else
-        format.html { render action: "new" }
-        format.json { render json: @thing.errors, status: :unprocessable_entity }
+
+        the_name.slice! 'New: "'
+        the_name.chop!
+        @thing.name = the_name
+
+        respond_to do |format|
+          if @thing.save
+            format.html { redirect_to edit_thing_path(@thing), notice: "The #{@thing.type.name} #{@thing.name} was successfully created." }
+            format.json { render json: @thing, status: :created, location: @thing }
+          else
+            format.html { render action: "new" }
+            format.json { render json: @thing.errors, status: :unprocessable_entity }
+          end
+        end
       end
     end
   end

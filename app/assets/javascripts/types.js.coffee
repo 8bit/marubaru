@@ -8,12 +8,6 @@
   jQuery ->
   	$('#type_name').tokenInput '/types.json'
     	tokenLimit: 1
-    	hintText: "What type of thing do you want to score? (ex: movie, book, game...)"
-    	searchingText: 'Checking'
-    	tokenValue: "name"
-
-    $('#thing_name').tokenInput '/things.json'
-    	tokenLimit: 1
-    	hintText: "What thing do you want to score?"
+    	hintText: "What type of thing do you want to rate? (ex: movie, book, game...)"
     	searchingText: 'Checking'
     	tokenValue: "name"
