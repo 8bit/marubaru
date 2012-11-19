@@ -4,9 +4,10 @@ class Type
 
   field :name, type: String
   field :description, type: String
+  field :owner_id, type: Integer
   #field :_id, type: String, default: ->{ name.to_s.parameterize }
 
-  attr_accessible :name, :description
+  attr_accessible :name, :description, :owner
   validates_presence_of :name
   validates_uniqueness_of :name, :case_sensitive => false
 

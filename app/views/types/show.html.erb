@@ -9,15 +9,16 @@
 </p>
 
 <br>
+<% if can? :create, @thing %>
+  <%= form_for([@type, Thing.new], html: {class: 'form-inline form-horizontal'}) do |f| %>
+    <p class="pull-left">
+      <%= f.text_field :name, style: 'height: 40px' %>
+    </p>
 
-<%= form_for([@type, Thing.new], html: {class: 'form-inline form-horizontal'}) do |f| %>
-  <p class="pull-left">
-    <%= f.text_field :name, style: 'height: 40px' %>
-  </p>
-
-   <p class="pull-left" style="padding-left:5px;">
-    <%= f.submit "Rate A #{@type.name}", :class => "btn", style: 'height: 40px' %>
-  </p>
+     <p class="pull-left" style="padding-left:5px;">
+      <%= f.submit "Rate A #{@type.name}", :class => "btn", style: 'height: 40px' %>
+    </p>
+  <% end %>
 <% end %>
 
 <table class="table" style="margin-top:80px;">
@@ -26,8 +27,12 @@
     <th class="span2">Name</th>
     <th class="span5">Description</th>
     <th class="span2"></th>
+    <% if can? :update, @thing %>
     <th class="span1"></th>
+    <% end %>
+    <% if can? :destroy, @thing %>
     <th class="span1"></th>
+    <% end %>
   </tr>
 
 <% @things.each do |thing| %>
@@ -36,8 +41,12 @@
     <td><%= thing.name %></td>
     <td><%= thing.description %></td>
     <td><%= link_to 'Check Reviews', thing, class: 'btn' %></td>
+    <% if can? :update, @thing %>
     <td><%= link_to 'Edit', edit_thing_path(thing) %></td>
+    <% end %>
+    <% if can? :destroy, @thing %>
     <td><%= link_to 'Destroy', thing, confirm: 'Are you sure?', method: :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>

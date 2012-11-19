@@ -1,6 +1,5 @@
 class User
   include Mongoid::Document
-  #rolify
   has_many :reviews
   
   # Include default devise modules. Others available are:
@@ -15,6 +14,7 @@ class User
   field :name,               :type => String, :default => ""
   field :email,              :type => String, :default => ""
   field :encrypted_password, :type => String, :default => ""
+  field :access,               :type => String, :default => "basic"
 
   validates_presence_of :name
   validates_uniqueness_of :name, :case_sensitive => false
@@ -48,4 +48,23 @@ class User
 
   ## Token authenticatable
   # field :authentication_token, :type => String
+
+  def role
+    if self.basic?
+      'basic'
+    elsif self.admin?
+      'admin'
+    end
+  end
+
+  def basic?
+    self.access == 'basic'
+  end
+
+  def admin?
+    self.access == 'admin'
+  end
+
+
+
 end

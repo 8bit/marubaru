@@ -1,5 +1,7 @@
 class ReviewsController < ApplicationController
 
+  load_and_authorize_resource
+
   before_filter :grab_thing
   # GET /reviews
   # GET /reviews.json

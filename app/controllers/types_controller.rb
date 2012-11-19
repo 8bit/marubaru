@@ -1,5 +1,5 @@
 class TypesController < ApplicationController
-
+  load_and_authorize_resource
   # GET /types
   # GET /types.json
   def index
@@ -62,6 +62,7 @@ class TypesController < ApplicationController
         the_name.chop!
         the_name.capitalize!
         @type.name = the_name
+        @type.owner_id = current_user.id
 
         
         respond_to do |format|
