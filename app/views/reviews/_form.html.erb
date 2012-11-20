@@ -33,12 +33,9 @@
         <p class="pull-left"><%= f.label i, style: 'padding-right:15px;'  %><%= f.radio_button :sub_score, i, :class => 'submittable' %></p>
       <% end %>
     </div>
-  </div>
-
-  <br>
-  <br>
-  <br>
+  </div> 
 <% end %>
+
 <%= form_for [@thing, @review] do |f| %>
 
   <div class="field">
