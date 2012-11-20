@@ -1,6 +1,5 @@
-<h1>Editing the <%= @thing.type.name %>: <%= @thing.name %></h1>
+<h1 style="padding-bottom: 20px;">Editing the <%= @thing.type.name %>: <%= @thing.name %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @thing %> |
-<%= link_to 'Back', things_path %>
+<%= link_to 'Back', thing_path(@thing) %>

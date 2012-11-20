@@ -9,7 +9,9 @@
   <%= @thing.description %>
 </p>
 
-<%= link_to "Review '#{@thing.name}' yourself", new_thing_review_path(@thing), class: 'btn'%><br><br>
+<% if can?(:create, Review) %>
+  <%= link_to "Review '#{@thing.name}' yourself", new_thing_review_path(@thing), class: 'btn'%><br><br>
+<% end %>    
 
 <table class="table">
   <tr>
@@ -24,16 +26,23 @@
 
 <% @reviews.each do |review| %>
   <tr>
-  	<td><%= review.ob_score + review.sub_score %></td>    
+  	<td><%= review.ob_score + review.sub_score %></td>
   	<td><%= review.ob_score %></td>
     <td><%= review.sub_score %></td>
     <td><%= review.user.name if review.user %></td>
     <td><%= review.note %></td>
+    <% if can?(:update, review)%>
     <td><%= link_to 'Edit', edit_review_path(review) %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+    <% if can?(:destroy, review)%>
     <td><%= link_to 'Destroy', review, confirm: 'Are you sure?', method: :delete %></td>
+    <% else %>
+      <td></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
 
-<%= link_to 'Edit', edit_thing_path(@thing) %> |
 <%= link_to 'Back', type_path(@thing.type) %>

@@ -1,4 +1,4 @@
-<% if can? :create, @type %>
+<% if can?(:create, Type) %>
   <%= form_for(Type.new, html: {class: 'form-inline form-horizontal'}) do |f| %>
     <p class="pull-left">
       <%= f.text_field :name, style: 'height: 40px' %>
@@ -13,27 +13,29 @@
 
 <table class="table" style="margin-top:80px;">
   <tr>
-    <th class="span2"></th>
     <th class="span2">Name</th>
     <th class="span6">Description</th>
-    <% if can? :update, @type %>
+    <%# if can?(:update, type) %>
     <th class="span1"></th>
-      <% end %>
-    <% if can? :destroy, @type %>
+      <%# end %>
+    <%# if can?(:destroy, type) %>
       <th class="span1"></th>
-    <% end %>
+    <%# end %>
   </tr>
 
 <% @types.each do |type| %>
   <tr>
-    <td><%= link_to "Rate a #{type.name}", type, class: 'btn' %></td>
-    <td><%= type.name %></td>
+    <td><%= link_to type.name, type, class: 'btn' %></td>
     <td><%= type.description %></td>
-    <% if can? :update, @type %>
+    <% if can?(:update, type) %>
       <td><%= link_to 'Edit', edit_type_path(type) %></td>
+    <% else %>
+      <td></td>
     <% end %>
-    <% if can? :destroy, @type %>
+    <% if can?(:destroy, type) %>
       <td><%= link_to 'Destroy', type, confirm: 'Are you sure?', method: :delete %></td>
+    <% else %>
+      <td></td>
     <% end %>
   </tr>
 <% end %>

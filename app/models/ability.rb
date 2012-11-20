@@ -1,17 +1,18 @@
 class Ability
   include CanCan::Ability
+  include Mongoid::Document
 
   def initialize(user)
     unless user
       user = User.new
       user.access = 'none'
     end
-
       can :read, :all
 
       if user.basic?
-        can :manage, :all
-        #can :update, :all, owner_id: user.id
+        can :create, [Type, Thing, Review]
+        can :update, Type, owner: user
+        can :update, Thing, owner: user
       end
 
       if user.admin?

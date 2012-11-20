@@ -2,6 +2,7 @@ class Thing
   include Mongoid::Document
   has_many :reviews
   belongs_to :type
+  belongs_to :owner, polymorphic: true
 
   field :name, type: String
   field :description, type: String

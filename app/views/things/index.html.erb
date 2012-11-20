@@ -11,12 +11,15 @@
 
 <% @things.each do |thing| %>
   <tr>
-    <td><%= thing.name %></td>
     <td><%= thing.description %></td>
     <td><%= link_to 'Review This', new_thing_review_path(thing) %></td>
     <td><%= link_to 'Show', thing %></td>
-    <td><%= link_to 'Edit', edit_thing_path(thing) %></td>
-    <td><%= link_to 'Destroy', thing, confirm: 'Are you sure?', method: :delete %></td>
+    <% if can?(:update, thing)%>
+      <td><%= link_to 'Edit', edit_thing_path(thing) %></td>
+    <% end %>
+    <% if can?(:destroy, type) %>
+      <td><%= link_to 'Destroy', thing, confirm: 'Are you sure?', method: :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>

@@ -62,7 +62,7 @@ class TypesController < ApplicationController
         the_name.chop!
         the_name.capitalize!
         @type.name = the_name
-        @type.owner_id = current_user.id
+        @type.owner = current_user
 
         
         respond_to do |format|

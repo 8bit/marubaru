@@ -1,5 +1,8 @@
 class User
   include Mongoid::Document
+
+  has_many :types, as: :owner
+  has_many :things, as: :owner
   has_many :reviews
   
   # Include default devise modules. Others available are:

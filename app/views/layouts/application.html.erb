@@ -28,7 +28,15 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <%= link_to "Marubaru!", root_path, class: 'brand' %>
+          <% if current_user && current_user.role == 'basic' %>
+          <%= link_to "Marubaru! Basic", root_path, class: 'brand' %>
+          <% elsif current_user && current_user.role == 'admin' %>
+          <%= link_to "Marubaru! Admin", root_path, class: 'brand' %>
+          <% elsif current_user && current_user.role == 'none' %>
+          <%= link_to "Marubaru! None", root_path, class: 'brand' %>
+          <% else %>
+          <%= link_to "Marubaru! Logged Out", root_path, class: 'brand' %>
+          <% end %>
           <div class="container nav-collapse">
             <ul class="nav">
               

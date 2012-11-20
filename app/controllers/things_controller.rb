@@ -60,6 +60,7 @@ class ThingsController < ApplicationController
         the_name.slice! 'New: "'
         the_name.chop!
         @thing.name = the_name
+        @thing.owner = current_user
 
         respond_to do |format|
           if @thing.save
@@ -81,7 +82,7 @@ class ThingsController < ApplicationController
 
     respond_to do |format|
       if @thing.update_attributes(params[:thing])
-        format.html { redirect_to @thing, notice: 'Thing was successfully updated.' }
+        format.html { redirect_to new_thing_review_path(@thing), notice: 'Thing was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
