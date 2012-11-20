@@ -3,6 +3,9 @@ class ReviewsController < ApplicationController
   load_and_authorize_resource
 
   before_filter :grab_thing
+  before_filter :lookup_review
+
+  
   # GET /reviews
   # GET /reviews.json
   def index
@@ -46,16 +49,21 @@ class ReviewsController < ApplicationController
   # POST /reviews
   # POST /reviews.json
   def create
-    @review = @thing.reviews.new(params[:review])
-    @review.user = current_user
+    unless @other_review.blank?
+      @other_review.update_attributes(params[:review])
+      render action: "edit"
+    else
+      @review = @thing.reviews.new(params[:review])
+      @review.user = current_user
 
-    respond_to do |format|
-      if @review.save
-        format.html { redirect_to @review, notice: 'Review was successfully created.' }
-        format.json { render json: @review, status: :created, location: @review }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @review.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @review.save
+          format.html { redirect_to @review, notice: 'Review was successfully created.' }
+          format.json { render json: @review, status: :created, location: @review }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @review.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -63,7 +71,9 @@ class ReviewsController < ApplicationController
   # PUT /reviews/1
   # PUT /reviews/1.json
   def update
-    @review = Review.find(params[:id])
+    unless @other_review.blank?
+      @review = @other_review
+    end
 
     respond_to do |format|
       if @review.update_attributes(params[:review])
@@ -94,6 +104,10 @@ class ReviewsController < ApplicationController
     if params[:thing_id]
       @thing = Thing.find(params[:thing_id])
     end
+  end
+
+  def lookup_review
+    @other_review = Review.where(user: current_user, thing: @thing, :created_at.gte => Date.today).first
   end
 
 end

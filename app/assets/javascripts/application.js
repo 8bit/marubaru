@@ -16,3 +16,7 @@
 //= require chosen-jquery
 //= require twitter/bootstrap
 //= require_tree .
+
+$('.submittable').live('change', function() {
+  $(this).parents('form:first').submit();
+});

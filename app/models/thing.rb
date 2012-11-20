@@ -1,5 +1,7 @@
 class Thing
   include Mongoid::Document
+  include Mongoid::Timestamps
+  
   has_many :reviews
   belongs_to :type
   belongs_to :owner, polymorphic: true

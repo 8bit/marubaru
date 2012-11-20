@@ -1,5 +1,7 @@
 class Type
   include Mongoid::Document
+  include Mongoid::Timestamps
+  
   has_many :things
   belongs_to :owner, polymorphic: true
 
