@@ -14,7 +14,7 @@
   <div>
     <%= f.label 'How good was it?' %>
     <div>
-      <% @scale = (1..10).to_a %>
+      <% @scale = (0..10).to_a %>
       <% @scale.each do |i| %>
         <p class="pull-left"><%= f.label i, style: 'padding-right:15px;' %><%= f.radio_button :ob_score, i, :class => 'submittable' %></p>
       <% end %>
@@ -28,7 +28,7 @@
   <div>
     <div>
       <%= f.label 'How much did you like it?' %>
-      <% @scale = (1..10).to_a %>
+      <% @scale = (0..10).to_a %>
       <% @scale.each do |i| %>
         <p class="pull-left"><%= f.label i, style: 'padding-right:15px;'  %><%= f.radio_button :sub_score, i, :class => 'submittable' %></p>
       <% end %>
