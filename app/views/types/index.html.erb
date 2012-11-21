@@ -1,17 +1,43 @@
-<% if can?(:create, Type) %>
-  <%= form_for(Type.new, html: {class: 'form-inline form-horizontal'}) do |f| %>
-    <p class="pull-left">
-      <%= f.text_field :name, style: 'height: 40px' %>
-    </p>
+<div class="hero-unit" style="text-align: center;">
+  <h1>Marubaru!</h1>
+  <p>Rate anything and everything - for yourself</p>
+  
+  
+  <% if can?(:create, Type) %>
+    <div style="padding-left:160px;">
+      <%= form_for(Type.new, html: { style: 'text-align: center;'}) do |f| %>
+        <p class="pull-left">
+          <%= f.text_field :name, style: 'height: 40px' %>
+        </p>
 
-     <p class="pull-left" style="padding-left:5px;">
-      <%= f.submit 'Rate Something!', :class => "btn", style: 'height: 40px' %>
-    </p>
+         <p class="pull-left" style="padding-left:5px;">
+          <%= f.submit 'Rate Something!', :class => 'btn btn-warning', style: 'height: 40px' %>
+        </p>
+      <% end %>
+    </div>
+    <br>
+    <br>
+    <br>
+  <% else %>
+    <div style="text-align: center; padding-top: 10px">
+      <h2>
+        <a class="btn btn-primary btn-large">
+          Learn the secrets of the last great Akkadian King!
+        </a>
+      </h2>
+    </div>
   <% end %>
-<% end %>
+</div>
 
+<h2 style="text-align: center;">
+  This website is a work in progress.
+</h2>
 
-<table class="table" style="margin-top:80px;">
+<h1 style="text-align: center;">
+ All information will be deleted regularly for the next few weeks. Thank you for your patience.
+</h1><br>
+
+<table class="table">
   <tr>
     <th class="span2">Name</th>
     <th class="span6">Description</th>
@@ -25,7 +51,7 @@
 
 <% @types.each do |type| %>
   <tr>
-    <td><%= link_to type.name, type, class: 'btn' %></td>
+    <td><%= link_to type.name, type, class: 'btn btn-warning' %></td>
     <td><%= type.description %></td>
     <% if can?(:update, type) %>
       <td><%= link_to 'Edit', edit_type_path(type) %></td>

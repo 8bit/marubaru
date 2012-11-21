@@ -16,7 +16,7 @@
     </p>
 
      <p class="pull-left" style="padding-left:5px;">
-      <%= f.submit "Rate A #{@type.name}", :class => "btn", style: 'height: 40px' %>
+      <%= f.submit "Rate A #{@type.name}", :class => 'btn btn-warning', style: 'height: 40px' %>
     </p>
   <% end %>
 <% end %>
@@ -37,11 +37,11 @@
 <% @things.each do |thing| %>
   <tr>
     <% if can?(:create, Review) %>
-  	 <td><%= link_to 'Rate This', new_thing_review_path(thing), class: 'btn' %></td>
+  	 <td><%= link_to 'Rate This', new_thing_review_path(thing), class: 'btn btn-warning' %></td>
     <% else %>
       <td></td>
     <% end %>
-    <td><%= link_to thing.name, thing, class: 'btn' %></td>
+    <td><%= link_to thing.name, thing, class: 'btn btn-warning' %></td>
     <td><%= thing.description %></td>
     <% if can?(:update, thing)%>
     <td><%= link_to 'Edit', edit_thing_path(thing) %></td>

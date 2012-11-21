@@ -10,7 +10,7 @@
 </p>
 
 <% if can?(:create, Review) %>
-  <%= link_to "Review '#{@thing.name}' yourself", new_thing_review_path(@thing), class: 'btn'%><br><br>
+  <%= link_to "Review '#{@thing.name}' yourself", new_thing_review_path(@thing), class: 'btn btn-warning'%><br><br>
 <% end %>    
 
 <table class="table">
