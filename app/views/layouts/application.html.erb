@@ -21,6 +21,7 @@
 
     <style type="text/css">
       body {
+        padding-top: 70px;
         font-family: 'Sanchez', serif;
       }
 
@@ -33,47 +34,69 @@
 
   </head>
   <body>
+    <% if false %>
+    <div class="container">
+      <ul class="nav nav-pills pull-left">
+          <li><%= link_to "Your Reviews", current_user  %></li>
+        <% if false %>
+          <li><%= link_to "Link2", "/path2"  %></li>
+          <li><%= link_to "Link3", "/path3"  %></li>
+        <% end %>
+      </ul>
+      <ul class="nav nav-pills pull-right" style="padding-right: 80px;">
+        <% if user_signed_in? %>
+          <li><%= link_to "Logged in as #{current_user.name}", current_user %></li>
+          <li><%= link_to 'Edit profile', edit_user_registration_path %> </li>
+          <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Sign up", new_user_registration_path %></li>
+          <li><%= link_to "Login", new_user_session_path %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
 
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <% if current_user && current_user.role == 'basic' %>
-          <%= link_to "Marubaru! Basic", root_path, class: 'brand' %>
-          <% elsif current_user && current_user.role == 'admin' %>
-          <%= link_to "Marubaru! Admin", root_path, class: 'brand' %>
-          <% elsif current_user && current_user.role == 'none' %>
-          <%= link_to "Marubaru! None", root_path, class: 'brand' %>
-          <% else %>
-          <%= link_to "Marubaru! Logged Out", root_path, class: 'brand' %>
-          <% end %>
-          <div class="container nav-collapse">
-            <ul class="nav">
-              
-                <li><%= link_to "Your Reviews", current_user  %></li>
-              <% if false %>
-                <li><%= link_to "Link2", "/path2"  %></li>
-                <li><%= link_to "Link3", "/path3"  %></li>
-              <% end %>
-            </ul>
-            <ul class="nav pull-right">
-              <% if user_signed_in? %>
-                <li><%= link_to "Logged in as #{current_user.name}", current_user %></li>
-                <li><%= link_to 'Edit profile', edit_user_registration_path %> </li>
-                <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
-              <% else %>
-                <li><%= link_to "Sign up", new_user_registration_path %></li>
-                <li><%= link_to "Login", new_user_session_path %></li>
-              <% end %>
-            </ul>
-          </div><!--/.nav-collapse -->
+    
+      <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+            <% if current_user && current_user.role == 'basic' %>
+            <%= link_to "Marubaru! Basic", root_path, class: 'brand' %>
+            <% elsif current_user && current_user.role == 'admin' %>
+            <%= link_to "Marubaru! Admin", root_path, class: 'brand' %>
+            <% elsif current_user && current_user.role == 'none' %>
+            <%= link_to "Marubaru! None", root_path, class: 'brand' %>
+            <% else %>
+            <%= link_to "Marubaru! Logged Out", root_path, class: 'brand' %>
+            <% end %>
+            <div class="container nav-collapse">
+              <ul class="nav">
+                
+                  <li><%= link_to "Your Reviews", current_user  %></li>
+                <% if false %>
+                  <li><%= link_to "Link2", "/path2"  %></li>
+                  <li><%= link_to "Link3", "/path3"  %></li>
+                <% end %>
+              </ul>
+              <ul class="nav pull-right">
+                <% if user_signed_in? %>
+                  <li><%= link_to "Logged in as #{current_user.name}", current_user %></li>
+                  <li><%= link_to 'Edit profile', edit_user_registration_path %> </li>
+                  <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+                <% else %>
+                  <li><%= link_to "Sign up", new_user_registration_path %></li>
+                  <li><%= link_to "Login", new_user_session_path %></li>
+                <% end %>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
         </div>
       </div>
-    </div>
 
     <div class="container">
       <div class="content">
@@ -105,6 +128,22 @@
             <% end %>
         </div><!--/row-->
       </div><!--/content-->
+
+      <% if @temp_title %>
+        <h1>
+          <%= @temp_title %>
+        </h1>
+
+         <div>
+          <img src=<%= "https://#{@temp_image}" %>></img>
+        </div>
+
+        <br>
+
+        <p>
+          <%= @temp_description %>
+        </p>
+      <% end %>
 
       <footer style="margin-top:100px;">
         <p>&copy; Joey Lapetina 2012</p>

@@ -17,7 +17,7 @@
     <% if can?(:update, thing)%>
       <td><%= link_to 'Edit', edit_thing_path(thing) %></td>
     <% end %>
-    <% if can?(:destroy, type) %>
+    <% if can?(:destroy, thing) %>
       <td><%= link_to 'Destroy', thing, confirm: 'Are you sure?', method: :delete %></td>
     <% end %>
   </tr>

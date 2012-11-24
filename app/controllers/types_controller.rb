@@ -41,6 +41,8 @@ class TypesController < ApplicationController
   # GET /types/1/edit
   def edit
     @type = Type.find(params[:id])
+    query = @type.name
+    look_for(query)    
   end
 
   # POST /types
@@ -104,5 +106,22 @@ class TypesController < ApplicationController
       format.html { redirect_to types_url }
       format.json { head :no_content }
     end
+  end
+
+  def look_for(query)
+    query.gsub!(' ','_')
+    url = "http://en.wikipedia.org/wiki/#{query}"
+    
+    begin
+      data = Nokogiri::HTML(open(url))
+    rescue OpenURI::HTTPError
+      #do something to handle error
+    else
+      @temp_title = data.at_css('#firstHeading').text unless data.at_css('#firstHeading').nil?
+      @temp_description = data.at_css('table~p').text unless data.at_css('table~p').nil?
+      @temp_image = data.at_css('.image img')[:src] unless data.at_css('.image img').nil?
+      @temp_image.slice!(0,2) unless @temp_image.nil?
+    end
+    
   end
 end

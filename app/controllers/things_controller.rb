@@ -1,4 +1,6 @@
 class ThingsController < ApplicationController
+  require 'nokogiri'
+  require 'open-uri'
   
   load_and_authorize_resource
 
@@ -40,6 +42,8 @@ class ThingsController < ApplicationController
   # GET /things/1/edit
   def edit
     @thing = Thing.find(params[:id])
+    query = @thing.name
+    look_for(query)  
   end
 
   # POST /things
@@ -95,10 +99,11 @@ class ThingsController < ApplicationController
   # DELETE /things/1.json
   def destroy
     @thing = Thing.find(params[:id])
+    type = @thing.type
     @thing.destroy
 
     respond_to do |format|
-      format.html { redirect_to things_url }
+      format.html { redirect_to type_path(type) }
       format.json { head :no_content }
     end
   end
@@ -109,5 +114,25 @@ class ThingsController < ApplicationController
     if params[:type_id]
       @type = Type.find(params[:type_id])
     end
+  end
+
+  def look_for(query)
+    query.gsub!(' ','_')
+    url = "http://en.wikipedia.org/wiki/#{query}"
+    query.gsub!('_',' ')
+    
+    begin
+      data = Nokogiri::HTML(open(url))
+    rescue OpenURI::HTTPError
+       @temp_title = "We don't know about the #{@thing.type.name}: #{@thing.name}"
+       @temp_description = "Really what is that?"
+    else
+      @temp_title = data.at_css('#firstHeading').text unless data.at_css('#firstHeading').nil?
+      @temp_description = data.at_css('table~p').text unless data.at_css('table~p').nil?
+      @temp_image = data.at_css('.image img')[:src] unless data.at_css('.image img').nil?
+      @temp_image.slice!(0,2) unless @temp_image.nil?
+
+    end
+
   end
 end
