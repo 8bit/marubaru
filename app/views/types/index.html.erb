@@ -2,15 +2,13 @@
   <h1>Marubaru!</h1>
   <p>Rate anything and everything - for yourself</p>
   
-  
   <% if can?(:create, Type) %>
     <div style="padding-left:160px;">
-      <%= form_for(Type.new, html: { style: 'text-align: center;'}) do |f| %>
+      <%= form_for Type.new do |f| %>
         <p class="pull-left">
           <%= f.text_field :name, style: 'height: 40px' %>
         </p>
-
-         <p class="pull-left" style="padding-left:5px;">
+        <p class="pull-left" style="padding-left:5px;">
           <%= f.submit 'Rate Something!', :class => 'btn btn-warning', style: 'height: 40px' %>
         </p>
       <% end %>

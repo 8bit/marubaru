@@ -7,11 +7,7 @@ class TypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      if false
-        format.json { render json: @types.any_of({ :name => /.*#{params[:q]}.*/i }) }
-      else
-        format.json { render json: @types.lookup(params[:q]) }
-      end
+      format.json { render json: @types.lookup(params[:q]) }
     end
   end 
 
@@ -41,8 +37,12 @@ class TypesController < ApplicationController
   # GET /types/1/edit
   def edit
     @type = Type.find(params[:id])
+  end
+
+  def check
+    @type = Type.find(params[:id])
     query = @type.name
-    look_for(query)    
+    look_for(query)
   end
 
   # POST /types
@@ -69,7 +69,8 @@ class TypesController < ApplicationController
         
         respond_to do |format|
           if @type.save
-            format.html { redirect_to edit_type_path(@type), notice: "Congrats! Your the first to reveiw a #{@type.name}, what is it?" }
+            #format.html { redirect_to edit_type_path(@type), notice: "Congrats! Your the first to reveiw a #{@type.name}, what is it?" }
+            format.html { redirect_to  check_type_path(@type), notice: "Looking for #{@type.name}?" }
             format.json { render json: @type, status: :created, location: @type }
           else
             format.html { render action: "new" }
@@ -84,6 +85,9 @@ class TypesController < ApplicationController
   # PUT /types/1.json
   def update
     @type = Type.find(params[:id])
+    @type.name = Type.find(params[:type]['temp_title'])
+    @type.description = Type.find(params[:type]['temp_description'])
+    @type.image = Type.find(params[:type]['temp_image'])
 
     respond_to do |format|
       if @type.update_attributes(params[:type])
@@ -121,7 +125,6 @@ class TypesController < ApplicationController
       @temp_description = data.at_css('table~p').text unless data.at_css('table~p').nil?
       @temp_image = data.at_css('.image img')[:src] unless data.at_css('.image img').nil?
       @temp_image.slice!(0,2) unless @temp_image.nil?
-    end
-    
+    end 
   end
 end

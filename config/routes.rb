@@ -4,10 +4,12 @@ Marubaru::Application.routes.draw do
   resources :users
 
   resources :types do
+    get 'check', :on => :member
     resources :things
   end
 
   resources :things do
+    get 'check', :on => :member
     resources :reviews
   end
 
