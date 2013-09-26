@@ -13,6 +13,15 @@ gem "heroku"
 gem "cancan"
 gem "nokogiri"
 
+group :development do
+
+  gem 'rails-footnotes'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  #gem 'meta_request'
+  #gem 'bullet'
+end
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

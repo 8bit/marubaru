@@ -49,10 +49,10 @@ class ReviewsController < ApplicationController
   # POST /reviews
   # POST /reviews.json
   def create
-    unless @other_review.blank?
-      @other_review.update_attributes(params[:review])
-      render action: "edit"
-    else
+    #unless @other_review.blank?
+    #  @other_review.update_attributes(params[:review])
+    #  render action: "edit"
+    #else
       @review = @thing.reviews.new(params[:review])
       @review.user = current_user
 
@@ -65,7 +65,7 @@ class ReviewsController < ApplicationController
           format.json { render json: @review.errors, status: :unprocessable_entity }
         end
       end
-    end
+    #end
   end
 
   # PUT /reviews/1

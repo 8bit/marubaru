@@ -1,4 +1,4 @@
-<%= form_for [@thing, @review], :remote => true do |f| %>
+<%= form_for [@thing, @review] do |f| %>
   <% if @review.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
@@ -16,7 +16,7 @@
     <div>
       <% @scale = (0..10).to_a %>
       <% @scale.each do |i| %>
-        <p class="pull-left"><%= f.label i, style: 'padding-right:15px;' %><%= f.radio_button :ob_score, i, :class => 'submittable' %></p>
+        <p class="pull-left"><%= f.label i, style: 'padding-right:15px;' %><%= f.radio_button :ob_score, i %></p>
       <% end %>
     </div>
   </div>
@@ -30,13 +30,10 @@
       <%= f.label 'How much did you like it?' %>
       <% @scale = (0..10).to_a %>
       <% @scale.each do |i| %>
-        <p class="pull-left"><%= f.label i, style: 'padding-right:15px;'  %><%= f.radio_button :sub_score, i, :class => 'submittable' %></p>
+        <p class="pull-left"><%= f.label i, style: 'padding-right:15px;'  %><%= f.radio_button :sub_score, i %></p>
       <% end %>
     </div>
-  </div> 
-<% end %>
-
-<%= form_for [@thing, @review] do |f| %>
+  </div>
 
   <div class="field">
     <p><%= f.label :note %></p>
