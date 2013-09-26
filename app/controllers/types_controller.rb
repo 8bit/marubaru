@@ -65,6 +65,7 @@ class TypesController < ApplicationController
         the_name.capitalize!
         @type.name = the_name
         @type.owner = current_user
+        @type.active = false
 
         
         respond_to do |format|
@@ -85,9 +86,12 @@ class TypesController < ApplicationController
   # PUT /types/1.json
   def update
     @type = Type.find(params[:id])
-    @type.name = Type.find(params[:type]['temp_title'])
-    @type.description = Type.find(params[:type]['temp_description'])
-    @type.image = Type.find(params[:type]['temp_image'])
+    if params[:type]['temp_title'] && params[:type]['temp_description']
+      @type.name = params[:type]['temp_title']
+      @type.description = params[:type]['temp_description']
+      @type.image = params[:type]['temp_image']
+    end
+    @type.active = true
 
     respond_to do |format|
       if @type.update_attributes(params[:type])
@@ -119,7 +123,7 @@ class TypesController < ApplicationController
     begin
       data = Nokogiri::HTML(open(url))
     rescue OpenURI::HTTPError
-      #do something to handle error
+      query.gsub!('_',' ')
     else
       @temp_title = data.at_css('#firstHeading').text unless data.at_css('#firstHeading').nil?
       @temp_description = data.at_css('table~p').text unless data.at_css('table~p').nil?

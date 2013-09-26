@@ -16,6 +16,7 @@
   </div>
 
   <div class="actions" >
-    <%= f.submit "Yup, thats a #{@type.name}"%>
+    <%= f.submit "Yup, that's a '#{@type.name}'.", class: "btn btn-warning" %>
+    <%= link_to 'Nevermind', @type, confirm: 'Are you sure?', method: :delete, class: "btn btn-warning", style: "margin-left:10px;"%>
   </div>
 <% end %>

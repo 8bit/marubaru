@@ -1,7 +1,7 @@
 
 <% if @temp_title && @temp_description %>
   <h1>
-    <%= @temp_title %>
+    <%= @temp_title %> 
   </h1>
   <% if @temp_image %>
     <div>
@@ -15,19 +15,18 @@
     </p>
   <% end %>
 
-  <%= form_for @type do |f| %>
+  <%= form_for @thing do |f| %>
   <%= f.hidden_field :temp_title, :value => @temp_title %>
   <%= f.hidden_field :temp_description, :value => @temp_description %>
   <%= f.hidden_field :temp_image, :value => @temp_image %>
   <%= f.submit "Thats right!", class: "btn btn-warning"%>
-  <%= link_to "Thats not right.", edit_type_path(@type), class: "btn btn-warning", style: "margin-left:10px;" %>
-  <%= link_to 'Nevermind.', @type, confirm: 'Are you sure?', method: :delete, class: "btn btn-warning", style: "margin-left:10px;" %>
+  <%= link_to 'Thats not right.', @thing, confirm: 'Are you sure?', method: :delete, class: "btn btn-warning", style: "margin-left:10px;" %>
 
 
   <% end %>
 <% else %>
 
-<h1>What is a <%= @type.name %></h1>
+<h1>Please give a description for the <%= @thing.type.name %>: <%= @thing.name %></h1>
 
 <%= render 'form' %>
 

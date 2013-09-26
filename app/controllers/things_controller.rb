@@ -42,8 +42,13 @@ class ThingsController < ApplicationController
   # GET /things/1/edit
   def edit
     @thing = Thing.find(params[:id])
+  end
+
+  def check
+    @thing = Thing.find(params[:id])
+    @type = params[:type]
     query = @thing.name
-    look_for(query)  
+    look_for(query)
   end
 
   # POST /things
@@ -53,22 +58,26 @@ class ThingsController < ApplicationController
     the_name = @thing.name
 
     if the_name.empty?
-      redirect_to :back, notice: 'Type a little, pick something from the list, hit the button!'
+      redirect_to things_path, notice: 'Type a little, pick something from the list, hit the button!'
     else
       old_name = Thing.where({name: @thing.name}).first
-      
+
       if old_name
         redirect_to old_name
       else
 
         the_name.slice! 'New: "'
         the_name.chop!
+        the_name.capitalize!
         @thing.name = the_name
         @thing.owner = current_user
+        @thing.active = false
+        @thing.type = @type
 
+        
         respond_to do |format|
           if @thing.save
-            format.html { redirect_to edit_thing_path(@thing), notice: "The #{@thing.type.name} #{@thing.name} was successfully created." }
+            format.html { redirect_to  check_thing_path(@thing), notice: "Looking for #{@thing.name}?" }
             format.json { render json: @thing, status: :created, location: @thing }
           else
             format.html { render action: "new" }
@@ -83,6 +92,12 @@ class ThingsController < ApplicationController
   # PUT /things/1.json
   def update
     @thing = Thing.find(params[:id])
+    if params[:thing]['temp_title'] && params[:thing]['temp_description']
+      @thing.name = params[:thing]['temp_title']
+      @thing.description = params[:thing]['temp_description']
+      @thing.image = params[:thing]['temp_image']
+    end
+    @thing.active = true;
 
     respond_to do |format|
       if @thing.update_attributes(params[:thing])
@@ -124,8 +139,7 @@ class ThingsController < ApplicationController
     begin
       data = Nokogiri::HTML(open(url))
     rescue OpenURI::HTTPError
-       @temp_title = "We don't know about the #{@thing.type.name}: #{@thing.name}"
-       @temp_description = "Really what is that?"
+      query.gsub!('_',' ')
     else
       @temp_title = data.at_css('#firstHeading').text unless data.at_css('#firstHeading').nil?
       @temp_description = data.at_css('table~p').text unless data.at_css('table~p').nil?

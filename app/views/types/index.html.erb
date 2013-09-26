@@ -48,20 +48,22 @@
   </tr>
 
 <% @types.each do |type| %>
-  <tr>
-    <td><%= link_to type.name, type, class: 'btn btn-warning' %></td>
-    <td><%= type.description %></td>
-    <% if can?(:update, type) %>
-      <td><%= link_to 'Edit', edit_type_path(type) %></td>
-    <% else %>
-      <td></td>
-    <% end %>
-    <% if can?(:destroy, type) %>
-      <td><%= link_to 'Destroy', type, confirm: 'Are you sure?', method: :delete %></td>
-    <% else %>
-      <td></td>
-    <% end %>
-  </tr>
+  <% if type.active == true %>
+    <tr>
+      <td><%= link_to type.name, type, class: 'btn btn-warning' %></td>
+      <td><%= type.description %></td>
+      <% if can?(:update, type) %>
+        <td><%= link_to 'Edit', edit_type_path(type) %></td>
+      <% else %>
+        <td></td>
+      <% end %>
+      <% if can?(:destroy, type) %>
+        <td><%= link_to 'Destroy', type, confirm: 'Are you sure?', method: :delete %></td>
+      <% else %>
+        <td></td>
+      <% end %>
+    </tr>
+  <% end %>
 <% end %>
 </table>
 

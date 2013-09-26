@@ -8,6 +8,7 @@ class Type
   field :name, type: String
   field :description, type: String
   field :image, type: String
+  field :active, type: Boolean
 
   attr_accessible :name, :description
   validates_presence_of :name
