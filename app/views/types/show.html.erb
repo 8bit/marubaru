@@ -8,8 +8,9 @@
   <%= @type.description %>
 </p>
 
-<br>
+
 <% if can?(:create, Thing) %>
+<br>
   <%= form_for([@type, Thing.new], html: {class: 'form-inline form-horizontal'}) do |f| %>
     <p class="pull-left">
       <%= f.text_field :name, style: 'height: 40px' %>
@@ -23,35 +24,35 @@
 
 <table class="table" style="margin-top:80px;">
   <tr>
-    <th class="span2"></th>
+    <% if can?(:create, Review) %>
+      <th class="span2"></th>
+    <% end %>
+    
     <th class="span2">Name</th>
     <th class="span5">Description</th>
-    <%# if can? :update, @thing %>
-    <th class="span1"></th>
-    <%# end %>
-    <%# if can? :destroy, @thing %>
-    <th class="span1"></th>
-    <%# end %>
+    
+    <% if can? :update, @thing %>
+      <th class="span1"></th>
+    <% end %>
+    <% if can? :destroy, @thing %>
+      <th class="span1"></th>
+    <% end %>
   </tr>
 
 <% @things.each do |thing| %>
   <tr>
     <% if can?(:create, Review) %>
-  	 <td><%= link_to 'Rate This', new_thing_review_path(thing), class: 'btn btn-warning' %></td>
-    <% else %>
-      <td></td>
+      <td><%= link_to 'Rate This', new_thing_review_path(thing), class: 'btn btn-warning' %></td>
     <% end %>
+    
     <td><%= link_to thing.name, thing, class: 'btn btn-warning' %></td>
     <td><%= thing.description %></td>
+    
     <% if can?(:update, thing)%>
-    <td><%= link_to 'Edit', edit_thing_path(thing) %></td>
-    <% else %>
-      <td></td>
+      <td><%= link_to 'Edit', edit_thing_path(thing) %></td>
     <% end %>
     <% if can?(:destroy, thing)%>
-    <td><%= link_to 'Destroy', thing, confirm: 'Are you sure?', method: :delete %></td>
-    <% else %>
-      <td></td>
+      <td><%= link_to 'Destroy', thing, confirm: 'Are you sure?', method: :delete %></td>
     <% end %>
   </tr>
 <% end %>

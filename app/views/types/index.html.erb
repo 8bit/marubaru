@@ -39,12 +39,13 @@
   <tr>
     <th class="span2">Name</th>
     <th class="span6">Description</th>
-    <%# if can?(:update, type) %>
-    <th class="span1"></th>
-      <%# end %>
-    <%# if can?(:destroy, type) %>
+    
+    <% if can?(:update, Type) %>
       <th class="span1"></th>
-    <%# end %>
+    <% end %>
+    <% if can?(:destroy, Type) %>
+      <th class="span1"></th>
+    <% end %>
   </tr>
 
 <% @types.each do |type| %>
@@ -54,13 +55,9 @@
       <td><%= type.description %></td>
       <% if can?(:update, type) %>
         <td><%= link_to 'Edit', edit_type_path(type) %></td>
-      <% else %>
-        <td></td>
       <% end %>
       <% if can?(:destroy, type) %>
         <td><%= link_to 'Destroy', type, confirm: 'Are you sure?', method: :delete %></td>
-      <% else %>
-        <td></td>
       <% end %>
     </tr>
   <% end %>

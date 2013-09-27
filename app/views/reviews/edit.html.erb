@@ -1,7 +1,7 @@
-<h1>Editing review</h1>
+<h1>Editing review for the  <%= "#{@thing.type.name}: #{@thing.name}" %></h1>
 
 <%= render 'form' %>
 
 <%= link_to 'Show', @review %> |
-<%= link_to 'Back', thing_path(@review.thing) %>
+<%= link_to 'Back', thing_path(@thing) %>
 

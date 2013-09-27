@@ -31,13 +31,19 @@ class ReviewsController < ApplicationController
   # GET /reviews/new
   # GET /reviews/new.json
   def new
-    @review = Review.new
-    @review.ob_score = 5
-    @review.sub_score = 5
+    unless @other_review.blank?
+      @other_review.update_attributes(params[:review])
+      @review = @other_review
+      render action: "edit"
+    else
+      @review = Review.new
+      @review.ob_score = 5
+      @review.sub_score = 5
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @review }
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @review }
+      end
     end
   end
 
@@ -49,10 +55,11 @@ class ReviewsController < ApplicationController
   # POST /reviews
   # POST /reviews.json
   def create
-    #unless @other_review.blank?
-    #  @other_review.update_attributes(params[:review])
-    #  render action: "edit"
-    #else
+    unless @other_review.blank?
+      @other_review.update_attributes(params[:review])
+      @review = @other_review
+      render action: "edit"
+    else
       @review = @thing.reviews.new(params[:review])
       @review.user = current_user
 
@@ -65,7 +72,7 @@ class ReviewsController < ApplicationController
           format.json { render json: @review.errors, status: :unprocessable_entity }
         end
       end
-    #end
+    end
   end
 
   # PUT /reviews/1
@@ -107,7 +114,7 @@ class ReviewsController < ApplicationController
   end
 
   def lookup_review
-    @other_review = Review.where(user: current_user, thing: @thing, :created_at.gte => Date.today).first
+    @other_review = Review.where(user: current_user, thing: @thing).first
   end
 
 end

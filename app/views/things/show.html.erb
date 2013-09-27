@@ -30,7 +30,7 @@
   	<td><%= review.ob_score %></td>
     <td><%= review.sub_score %></td>
     <td><%= review.user.name if review.user %></td>
-    <td><%= review.note %></td>
+    <td><%= review.thought %></td>
     <% if can?(:update, review)%>
     <td><%= link_to 'Edit', edit_review_path(review) %></td>
     <% else %>
