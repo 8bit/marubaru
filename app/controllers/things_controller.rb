@@ -143,7 +143,7 @@ class ThingsController < ApplicationController
     else
       @temp_title = data.at_css('#firstHeading').text unless data.at_css('#firstHeading').nil?
       @temp_description = data.at_css('table~p').text unless data.at_css('table~p').nil?
-      @temp_image = data.at_css('.image img')[:src] unless data.at_css('.image img').nil?
+      @temp_image = data.at_css('.infobox img')[:src] unless data.at_css('.infobox img').nil?
       @temp_image.slice!(0,2) unless @temp_image.nil?
 
     end

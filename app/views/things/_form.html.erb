@@ -17,6 +17,8 @@
 
   <div class="actions">
     <%= f.submit "Yup, that's what '#{@thing.name}' is.", class: "btn btn-warning" %>
-    <%= link_to 'Nevermind', @thing, confirm: 'Are you sure?', method: :delete, class: "btn btn-warning", style: "margin-left:10px;"%>
+    <% unless @thing.active == true %>
+      <%= link_to 'Nevermind', @thing, confirm: 'Are you sure?', method: :delete, class: "btn btn-warning", style: "margin-left:10px;"%>
+    <% end %>
   </div>
 <% end %>

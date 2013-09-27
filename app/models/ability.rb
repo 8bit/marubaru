@@ -11,8 +11,9 @@ class Ability
 
       if user.basic?
         can :create, [Type, Thing, Review]
-        can :update, Type, owner: user
-        can :update, Thing, owner: user
+        can :manage, Type, owner: user
+        can :manage, Thing, owner: user
+        can :manage, Review, user: user
       end
 
       if user.admin?
